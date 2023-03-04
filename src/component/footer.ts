@@ -1,10 +1,5 @@
-import { LitElement, html, customElement ,unsafeCSS} from "lit-element";
 import githubImage from "@/assets/img/github.png";
-
-
-
-@customElement("footer-element")
-class HeaderLoginElement extends HTMLElement {
+class FooterElement extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `     
     <div class="container">
@@ -26,4 +21,10 @@ class HeaderLoginElement extends HTMLElement {
   </div>
 `;
   }
+}
+customElements.define('ml-footer', FooterElement);
+
+export function createFooter(parent:HTMLElement){
+  let element = document.createElement("ml-footer");
+  parent.appendChild(element);
 }

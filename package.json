@@ -9,6 +9,7 @@
   "devDependencies": {
     "@babel/core": "^7.21.0",
     "@babel/preset-env": "^7.20.2",
+    "@types/jquery": "^3.5.16",
     "babel-loader": "^9.1.2",
     "bootstrap": "^5.2.3",
     "copy-webpack-plugin": "^11.0.0",
@@ -23,17 +24,13 @@
     "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
-    "@shoelace-style/shoelace": "^2.1.0",
     "@vaadin/router": "^1.7.4",
-    "core-js": "^3.29.0",
-    "lit-html": "^2.6.1",
-    "regenerator-runtime": "^0.13.11",
-    "style-loader": "^3.3.1"
+    "jquery": "^3.6.3",
+    "jwt-decode": "^3.1.2"
   },
   "scripts": {
     "build": "webpack --mode=production",
-    "start": "webpack serve --open --mode=development",
-    "start:dev": "webpack-dev-server"
-
+    "dev": "webpack serve --open --mode=development",
+    "start": "webpack serve --optimization-minimize --mode=production"
   }
 }

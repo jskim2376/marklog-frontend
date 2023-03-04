@@ -1,26 +1,19 @@
-import { Commands, Context, Router } from "@vaadin/router";
+import { Router } from "@vaadin/router";
 import "@/page/home";
-import "bootstrap"
+import "@/page/login"
 function initRouter() {
   const router = new Router(document.querySelector("main"));
   router.setRoutes([
     {
       path: "/",
-      component: "home-page",
-
-      children: [
-        {
-          path: "index",
-          component: "home-page",
-        },
-      ],
+      component: "ml-home-page",
     },
     {
-      path: "/hihi",
-      component: "home-page",
+      path: "/login",
+      component: "ml-login-page",
     },
   ]);
 }
 
-window.onload = () => initRouter();
+  window.onload = () => initRouter();
 

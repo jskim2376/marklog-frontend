@@ -1,15 +1,16 @@
 // <sl-button>, <sl-icon>, <sl-input>, and <sl-rating> are ready to use!
-import {LitElement, customElement, property} from "lit-element";
-import {html} from 'lit-html';
-import "@/component/header-login";
-import "@/component/footer";
+import { createHeader} from "@/component/header";
+import { createRecentPost} from "@/component/recent-post";
+import {createFooter} from "@/component/footer";
+import { Api } from "@/utils/api";
 
-@customElement('home-page')
-class HomePage extends HTMLElement {
-  connectedCallback() {
-    this.innerHTML = `      
-    <header-login></header-login>
-    <footer-element></footer-element>
-    `
+class HomePageElement extends HTMLElement {
+  async connectedCallback() {
+    let api = new Api;
+    let accessToken = await api.getAccessToken();
+    await createHeader(this, accessToken);
+    createRecentPost(this);
+    createFooter(this);
   }
 }
+customElements.define('ml-home-page', HomePageElement);
