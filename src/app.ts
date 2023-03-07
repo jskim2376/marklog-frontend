@@ -1,7 +1,12 @@
 import { Router } from "@vaadin/router";
 import "@/page/home";
-import "@/page/login"
-function initRouter() {
+import "@/page/login";
+import "@/page/search";
+import { Api } from "./utils/api";
+
+async function initRouter() {
+  let api = new Api;
+  await api.setAccessToken();
   const router = new Router(document.querySelector("main"));
   router.setRoutes([
     {
@@ -11,6 +16,10 @@ function initRouter() {
     {
       path: "/login",
       component: "ml-login-page",
+    },
+    {
+      path: "/search",
+      component: "ml-search-page",
     },
   ]);
 }

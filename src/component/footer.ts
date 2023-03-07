@@ -24,7 +24,6 @@ class FooterElement extends HTMLElement {
 }
 customElements.define('ml-footer', FooterElement);
 
-export function createFooter(parent:HTMLElement){
-  let element = document.createElement("ml-footer");
-  parent.appendChild(element);
+export function createFooter(){
+  return document.createElement("ml-footer");
 }

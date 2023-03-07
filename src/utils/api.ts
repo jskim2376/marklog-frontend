@@ -36,34 +36,72 @@ export class Api{
     this.url="http://localhost/api/v1";
   }
 
-  _ajaxAccessToken(){
-  }
-
-  async getAccessToken(){
+  async setAccessToken(){
     try{
-      let path = this.url+"/token/refresh"
-      const result = await $.getJSON(path)
-      return result.access_token;
+      let path = this.url+"/token/refresh";
+      const result = await $.getJSON(path);
+      localStorage.setItem("access-token",result.access_token);
     }catch{
-      return null;
+      localStorage.removeItem("access-token");
     }
  }
 
-  async getRecentPost(){
-    let path = this.url+"/post/recent?sort=id,desc"
+  getRecentPost(){
+    let path = this.url+"/post/recent?sort=id,desc";
     try{
-      return await $.getJSON(path);
+      return $.getJSON(path);
     }catch{
       return null;
     }
   }
 
-  async getUser(userId:number){
+  getUser(userId:string){
     let path = this.url+"/user/"+userId;
     try{
-    return await $.getJSON(path);
+      return $.getJSON(path);
     }catch{
       return null;
     }
   }
+
+  _getNotices(userId:string){
+    let accessToken = localStorage.getItem("access-token");
+    let bearerToken = "Bearer "+accessToken;
+    let path = this.url+"/notice/" + userId +"/uncheck";
+    return $.ajax({
+      beforeSend: function(request) {
+        request.setRequestHeader("Authorization", bearerToken);
+      },
+      dataType: "json",
+      url: path,
+    });
+  }
+  
+  async getNotices(userId:string){
+    try{
+      return this._getNotices(userId);
+    }catch{
+      await this.setAccessToken();
+      let accessToken = localStorage.getItem("access-token");
+      if(accessToken != null){
+        return this._getNotices(userId);
+      }else{
+        return null;
+      }
+    }
+  }
+
+  deleteNotice(noticeId:number){
+      let accessToken = localStorage.getItem("access-token");
+      let bearerToken = "Bearer "+accessToken;
+      let path = this.url+"/notice/" + noticeId;
+      return $.ajax({
+        beforeSend: function(request) {
+          request.setRequestHeader("Authorization", bearerToken);
+        },
+        type:'DELETE',
+        url: path,
+      });
+  }
+  
 }

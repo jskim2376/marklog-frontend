@@ -6,11 +6,9 @@ import { Api } from "@/utils/api";
 
 class HomePageElement extends HTMLElement {
   async connectedCallback() {
-    let api = new Api;
-    let accessToken = await api.getAccessToken();
-    await createHeader(this, accessToken);
-    createRecentPost(this);
-    createFooter(this);
+    this.appendChild(await createHeader());
+    this.appendChild(createRecentPost());
+    this.appendChild(createFooter())
   }
 }
 customElements.define('ml-home-page', HomePageElement);

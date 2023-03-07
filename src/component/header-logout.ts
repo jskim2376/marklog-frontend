@@ -1,4 +1,4 @@
-class HeaderLogoutElement extends HTMLElement {
+export class HeaderLogoutElement extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
       <nav
@@ -6,7 +6,7 @@ class HeaderLogoutElement extends HTMLElement {
         id="logout-nav"
       >
         <div class="container">
-          <a class="navbar-brand fs-3" href="index.html">Marklog</a>
+          <a class="navbar-brand fs-3" href="/">Marklog</a>
           <ul class="nav">
           <li class="nav-item">
             <a href='/search' class="btn">
