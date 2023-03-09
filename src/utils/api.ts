@@ -46,14 +46,7 @@ export class Api{
     }
  }
 
-  getRecentPost(){
-    let path = this.url+"/post/recent?sort=id,desc";
-    try{
-      return $.getJSON(path);
-    }catch{
-      return null;
-    }
-  }
+
 
   getUser(userId:string){
     let path = this.url+"/user/"+userId;
@@ -104,4 +97,21 @@ export class Api{
       });
   }
   
+  getRecentPost(page:number){
+    let path = this.url+"/post/recent?sort=id,desc&"+"page="+page;
+    try{
+      return $.getJSON(path);
+    }catch{
+      return null;
+    }
+  }
+
+  getSearchPost(text:string, page:number){
+    let path = this.url+`/post/search?text=${text}&sort=id,desc&page=${page}`;
+    try{
+      return $.getJSON(path);
+    }catch{
+      return null;
+    }
+  }
 }
