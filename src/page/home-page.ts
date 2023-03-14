@@ -2,11 +2,11 @@
 import { createHeader} from "@/component/header";
 import { createRecentPost} from "@/component/recent-post";
 import {createFooter} from "@/component/footer";
-import { Api } from "@/utils/api";
+import { Api } from "@/api/api";
 
 class HomePageElement extends HTMLElement {
   async connectedCallback() {
-    this.appendChild(await createHeader());
+    this.appendChild(await createHeader("Marklog"));
     this.appendChild(createRecentPost());
     this.appendChild(createFooter())
   }
