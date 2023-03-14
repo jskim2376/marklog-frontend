@@ -1,8 +1,8 @@
-import {html, render} from 'lit-html';
-import {PostCard} from './post-card';
-import {Api} from '@/api/api';
-import {Page} from '@/dto/page-dto';
-import {PostListDto} from '@/dto/post-list-dto';
+import {html, render} from "lit-html";
+import {PostCard} from "./post-card";
+import {Api} from "@/api/api";
+import {Page} from "@/dto/page-dto";
+import {PostListDto} from "@/dto/post-list-dto";
 
 class RecentPostElement extends HTMLElement {
 	api: Api;
@@ -12,7 +12,7 @@ class RecentPostElement extends HTMLElement {
 	}
 
 	setScroll(postCard: PostCard) {
-		window.addEventListener('scroll', async () => {
+		window.addEventListener("scroll", async () => {
 			postCard.setPage(postCard.getPage() + 1);
 			let response: Page<PostListDto> = await this.api.getRecentPost(postCard.getPage());
 			postCard.appendCard(response.content);
@@ -34,8 +34,8 @@ class RecentPostElement extends HTMLElement {
 	}
 }
 
-customElements.define('ml-recent-post', RecentPostElement);
+customElements.define("ml-recent-post", RecentPostElement);
 
 export function createRecentPost() {
-	return document.createElement('ml-recent-post');
+	return document.createElement("ml-recent-post");
 }

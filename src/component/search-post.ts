@@ -1,26 +1,29 @@
-import '@/component/search-post';
-import {Api} from '@/api/api';
-import {PostCard} from './post-card';
-import {Page} from '@/dto/page-dto';
-import {PostListDto} from '@/dto/post-list-dto';
-import {render, html} from 'lit';
+import "@/component/search-post";
+import {Api} from "@/api/api";
+import {Page} from "@/dto/page-dto";
+import {PostListDto} from "@/dto/post-list-dto";
+import {render, html} from "lit";
+import {PostCardRow1} from "./post-card-row1";
 class SearchPostElement extends HTMLElement {
-	postCard: PostCard;
+	postCard: PostCardRow1;
 
 	constructor() {
 		super();
-		this.postCard = new PostCard();
+		this.postCard = new PostCardRow1();
 	}
 
 	async setSearchCard() {
-		let searchInput = <HTMLInputElement>document.getElementById('search-input')!;
+		let searchInput = <HTMLInputElement>document.getElementById("search-input")!;
 		let api = new Api();
 		let response: Page<PostListDto> = await api.getSearchPost(searchInput.value, this.postCard.getPage());
+		if (this.postCard.getPage() == 0) {
+			this.postCard.cardRow.innerHTML = "";
+		}
 		this.postCard.appendCard(response.content);
 	}
 
 	setScroll() {
-		window.addEventListener('scroll', () => {
+		window.addEventListener("scroll", () => {
 			let val = window.innerHeight + window.scrollY;
 			if (val >= document.body.offsetHeight) {
 				this.setSearchCard();
@@ -33,7 +36,7 @@ class SearchPostElement extends HTMLElement {
 		const template = html`
 			<div class="container">
 				<h1>검색</h1>
-				<b>${url.searchParams.get('username') ? url.searchParams.get('username') + '님이 작성한 게시글 검색' : ''}</b>
+				<b>${url.searchParams.get("username") ? url.searchParams.get("username") + "님이 작성한 게시글 검색" : ""}</b>
 				<div class="input-group input-group-lg mb-3">
 					<button class="btn btn-outline-dark" id="search-button">
 						<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
@@ -47,14 +50,14 @@ class SearchPostElement extends HTMLElement {
 		`;
 		render(template, this);
 
-		let searchButton: HTMLElement = document.getElementById('search-button')!;
+		let searchButton: HTMLElement = document.getElementById("search-button")!;
 		searchButton.onclick = () => {
 			this.setSearchCard();
 			this.setScroll();
 		};
-		let searchInput: HTMLElement = document.getElementById('search-input')!;
+		let searchInput: HTMLElement = document.getElementById("search-input")!;
 		searchInput.onkeydown = (e) => {
-			if (e.code == 'Enter') {
+			if (e.code == "Enter") {
 				searchButton.click();
 			}
 		};
@@ -62,7 +65,7 @@ class SearchPostElement extends HTMLElement {
 	}
 }
 
-customElements.define('ml-search-post', SearchPostElement);
+customElements.define("ml-search-post", SearchPostElement);
 export function createSearchPost() {
-	return document.createElement('ml-search-post');
+	return document.createElement("ml-search-post");
 }
