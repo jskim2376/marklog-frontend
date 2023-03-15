@@ -1,7 +1,7 @@
-import {html, render} from 'lit';
+import { html, render } from "lit";
 export class HeaderLogoutElement extends HTMLElement {
 	connectedCallback() {
-		let blogName = this.getAttribute('blog-name');
+		let blogName = this.getAttribute("blog-name");
 		const template = html`
 			<nav class="navbar navbar-expand-lg navbar-light bg-light mb-3" id="logout-nav">
 				<div class="container">
@@ -25,4 +25,4 @@ export class HeaderLogoutElement extends HTMLElement {
 		render(template, this);
 	}
 }
-customElements.define('ml-header-logout', HeaderLogoutElement);
+customElements.define("ml-header-logout", HeaderLogoutElement);

@@ -1,9 +1,9 @@
-import "@/component/search-post";
-import {Api} from "@/api/api";
-import {Page} from "@/dto/page-dto";
-import {PostListDto} from "@/dto/post-list-dto";
-import {render, html} from "lit";
-import {PostCardRow1} from "./post-card-row1";
+import "@/component/main/search";
+import { Api } from "@/api/api";
+import { Page } from "@/interface/page";
+import { PostList } from "@/interface/post-list";
+import { render, html } from "lit";
+import { PostCardRow1 } from "./element/post-card-row1";
 class SearchPostElement extends HTMLElement {
 	postCard: PostCardRow1;
 
@@ -15,7 +15,7 @@ class SearchPostElement extends HTMLElement {
 	async setSearchCard() {
 		let searchInput = <HTMLInputElement>document.getElementById("search-input")!;
 		let api = new Api();
-		let response: Page<PostListDto> = await api.getSearchPost(searchInput.value, this.postCard.getPage());
+		let response: Page<PostList> = await api.getSearchPost(searchInput.value, this.postCard.getPage());
 		if (this.postCard.getPage() == 0) {
 			this.postCard.cardRow.innerHTML = "";
 		}

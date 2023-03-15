@@ -1,11 +1,11 @@
-import {Router} from "@vaadin/router";
+import { Router } from "@vaadin/router";
 import "@/page/home-page";
 import "@/page/login-page";
 import "@/page/post-page";
 import "@/page/search-page";
 import "@/page/blog-page";
 import "@/page/tag-page";
-import {Api} from "./api/api";
+import { Api } from "./api/api";
 
 async function initRouter() {
 	let api = new Api();

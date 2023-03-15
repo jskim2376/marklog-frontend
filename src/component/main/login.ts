@@ -1,4 +1,4 @@
-import {html, render} from 'lit-html';
+import { html, render } from "lit-html";
 
 class LoginElement extends HTMLElement {
 	connectedCallback() {
@@ -24,8 +24,8 @@ class LoginElement extends HTMLElement {
 	}
 }
 
-customElements.define('ml-login', LoginElement);
+customElements.define("ml-login", LoginElement);
 
 export function createLogin() {
-	return document.createElement('ml-login');
+	return document.createElement("ml-login");
 }

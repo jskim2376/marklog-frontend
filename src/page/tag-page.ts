@@ -1,8 +1,8 @@
-import "@/component/header-login";
-import "@/component/footer";
-import {createHeader} from "@/component/header";
-import {createFooter} from "@/component/footer";
-import {createTagPost} from "@/component/tag-post";
+import "@/component/header/element/header-login";
+import "@/component/footer/footer";
+import { createHeader } from "@/component/header/header";
+import { createFooter } from "@/component/footer/footer";
+import { createTagPost } from "@/component/main/tag";
 
 class TagPageElement extends HTMLElement {
 	async connectedCallback() {

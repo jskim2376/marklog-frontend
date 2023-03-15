@@ -1,6 +1,6 @@
-import { Tag } from "./tag-dto";
+import { Tag } from "./tag";
 
-export interface PostListDto {
+export interface PostList {
 	postId: number;
 	thumbnail: string;
 	title: string;

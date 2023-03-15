@@ -1,25 +1,25 @@
-import {Api} from '@/api/api';
-import {NoticesResponseDto} from '@/dto/notice-dto';
-import jwtDecode, {JwtPayload} from 'jwt-decode';
-import {html, render} from 'lit-html';
+import { Api } from "@/api/api";
+import { NoticesResponse } from "@/interface/notice";
+import jwtDecode, { JwtPayload } from "jwt-decode";
+import { html, render } from "lit-html";
 
 export class HeaderLoginElement extends HTMLElement {
 	async createNoticeElement(userId: string) {
 		let api = new Api();
-		let notices: Array<NoticesResponseDto> = await api.getNotices(userId);
+		let notices: Array<NoticesResponse> = await api.getNotices(userId);
 
 		if (notices.length == 0) {
-			let item = document.createElement('li');
-			item.setAttribute('class', 'dropdown-item');
-			item.innerText = '\n';
+			let item = document.createElement("li");
+			item.setAttribute("class", "dropdown-item");
+			item.innerText = "\n";
 			return item;
 		} else {
-			let noticeElement = document.createElement('div');
+			let noticeElement = document.createElement("div");
 			notices.forEach((element) => {
-				let item: HTMLElement = document.createElement('li');
-				item.setAttribute('class', 'dropdown-item');
+				let item: HTMLElement = document.createElement("li");
+				item.setAttribute("class", "dropdown-item");
 				item.innerText = element.content;
-				Array<NoticesResponseDto>;
+				Array<NoticesResponse>;
 				item.onclick = () => {
 					api.deleteNotice(element.id);
 					item.remove();
@@ -33,10 +33,10 @@ export class HeaderLoginElement extends HTMLElement {
 
 	async connectedCallback() {
 		let api = new Api();
-		let accessToken: string = localStorage.getItem('access-token')!;
+		let accessToken: string = localStorage.getItem("access-token")!;
 		let userId = jwtDecode<JwtPayload>(accessToken).jti!;
 		let user = await api.getUser(userId);
-		let blogName = this.getAttribute('blog-name');
+		let blogName = this.getAttribute("blog-name");
 		const template = html`
 			<nav class="navbar navbar-expand-lg navbar-light bg-light mb-3" id="login-nav">
 				<div class="container">
@@ -94,9 +94,9 @@ export class HeaderLoginElement extends HTMLElement {
 		render(template, this);
 
 		let noticesElement = await this.createNoticeElement(userId);
-		let notice = this.querySelector('#notice')!;
+		let notice = this.querySelector("#notice")!;
 		notice.appendChild(noticesElement);
 	}
 }
 
-customElements.define('ml-header-login', HeaderLoginElement);
+customElements.define("ml-header-login", HeaderLoginElement);

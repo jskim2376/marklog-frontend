@@ -1,5 +1,5 @@
-import {Api} from '@/api/api';
-import {marked} from 'marked';
+import { Api } from "@/api/api";
+import { marked } from "marked";
 
 interface TagResponseDto {
 	name: string;
@@ -20,9 +20,9 @@ class PostElement extends HTMLElement {
 	createTagElements(tagList: Array<TagResponseDto>) {
 		let tagElements: Array<HTMLElement> = new Array();
 		tagList.forEach((tagResponseDto) => {
-			let tag = document.createElement('button');
+			let tag = document.createElement("button");
 			tag.innerText = tagResponseDto.name;
-			tag.setAttribute('class', 'btn btn-primary mx-1');
+			tag.setAttribute("class", "btn btn-primary mx-1");
 			tagElements.push(tag);
 		});
 		return tagElements;
@@ -30,7 +30,7 @@ class PostElement extends HTMLElement {
 
 	async connectedCallback() {
 		let api = new Api();
-		let postId: number = parseInt(this.parentElement?.getAttribute('post-id')!);
+		let postId: number = parseInt(this.parentElement?.getAttribute("post-id")!);
 		let post: PostResponseDto = await api.getPost(postId);
 		marked.setOptions({
 			breaks: true,
@@ -54,15 +54,15 @@ class PostElement extends HTMLElement {
         </article>
       </div>
     `;
-		let tagDiv = document.getElementById('taglist')!;
+		let tagDiv = document.getElementById("taglist")!;
 		this.createTagElements(post.tagList).forEach((tagElement) => {
 			tagDiv.appendChild(tagElement);
 		});
 	}
 }
 
-customElements.define('ml-post', PostElement);
+customElements.define("ml-post", PostElement);
 
 export function createPost() {
-	return document.createElement('ml-post');
+	return document.createElement("ml-post");
 }

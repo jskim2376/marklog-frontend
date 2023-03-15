@@ -34,7 +34,7 @@ export class Api {
 		}
 	}
 
-	getTagPost(tagName: string, page: number) {
+	getPostByTagName(tagName: string, page: number) {
 		let path = this.url + `/post/tag?tag-name=${tagName}&sort=id,desc&page=${page}`;
 		try {
 			return $.getJSON(path);
@@ -94,6 +94,15 @@ export class Api {
 
 	getPost(postId: number) {
 		let path = this.url + "/post/" + postId;
+		try {
+			return $.getJSON(path);
+		} catch {
+			return null;
+		}
+	}
+
+	getTagCount(userId: number) {
+		let path = this.url + "/tag/" + userId;
 		try {
 			return $.getJSON(path);
 		} catch {

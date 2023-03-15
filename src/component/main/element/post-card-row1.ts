@@ -1,6 +1,6 @@
-import {html, render} from "lit-html";
-import {PostListDto} from "@/dto/post-list-dto";
-import {Tag} from "@/dto/tag-dto";
+import { html, render } from "lit-html";
+import { PostList } from "@/interface/post-list";
+import { Tag } from "@/interface/tag";
 
 export class PostCardRow1 {
 	cardRow: HTMLElement;
@@ -16,7 +16,7 @@ export class PostCardRow1 {
 		return cardRow;
 	}
 
-	createPostCard(post: PostListDto): HTMLElement {
+	createPostCard(post: PostList): HTMLElement {
 		let card = document.createElement("div");
 		card.setAttribute("class", "my-3");
 		let tagList = this.createTag(post.tagList);
@@ -65,8 +65,8 @@ export class PostCardRow1 {
 		return tagListElement;
 	}
 
-	appendCard(postList: Array<PostListDto>) {
-		postList.forEach((post: PostListDto) => {
+	appendCard(postList: Array<PostList>) {
+		postList.forEach((post: PostList) => {
 			let card = this.createPostCard(post);
 			this.cardRow.appendChild(card);
 		});

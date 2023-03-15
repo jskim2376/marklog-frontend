@@ -1,7 +1,7 @@
 import githubImage from "@/assets/img/github.png";
 class FooterElement extends HTMLElement {
-  connectedCallback() {
-    this.innerHTML = `     
+	connectedCallback() {
+		this.innerHTML = `     
     <div class="container">
     <hr class="hr" />
     <a target="_blank" class="d-block">
@@ -20,10 +20,10 @@ class FooterElement extends HTMLElement {
     </div>
   </div>
 `;
-  }
+	}
 }
-customElements.define('ml-footer', FooterElement);
+customElements.define("ml-footer", FooterElement);
 
-export function createFooter(){
-  return document.createElement("ml-footer");
+export function createFooter() {
+	return document.createElement("ml-footer");
 }

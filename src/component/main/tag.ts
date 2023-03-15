@@ -1,8 +1,8 @@
-import "@/component/search-post";
-import {Api} from "@/api/api";
-import {PostListDto} from "@/dto/post-list-dto";
-import {render, html} from "lit";
-import {PostCardRow1} from "./post-card-row1";
+import "@/component/main/search";
+import { Api } from "@/api/api";
+import { PostList } from "@/interface/post-list";
+import { render, html } from "lit";
+import { PostCardRow1 } from "./element/post-card-row1";
 
 class TagPostElement extends HTMLElement {
 	postCard: PostCardRow1;
@@ -17,7 +17,7 @@ class TagPostElement extends HTMLElement {
 
 	async setTagCard() {
 		let api = new Api();
-		let response: Array<PostListDto> = await api.getTagPost(this.hashTagName, this.postCard.getPage());
+		let response: Array<PostList> = await api.getPostByTagName(this.hashTagName, this.postCard.getPage());
 		this.postCard.appendCard(response);
 	}
 
