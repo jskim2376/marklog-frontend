@@ -22,8 +22,6 @@ class BlogElement extends HTMLElement {
 
 	async connectedCallback() {
 		let api = new Api();
-		// let tagCount: TagCount = await api.getTagCount(userId);
-
 		let template = html` <div class="container" id="blog"></div> `;
 		render(template, this);
 
