@@ -1,37 +1,35 @@
 import { html, render } from "lit-html";
 import { PostCard } from "./element/post-card";
-import { Api } from "@/api/api";
-import { Page } from "@/interface/page";
-import { PostList } from "@/interface/post-list";
+import { PostCardRowOne } from "./element/post-card-row-one";
+import { PostCardRowFour } from "./element/post-card-row-four";
 
 class RecentPostElement extends HTMLElement {
-	api: Api;
+	postCard: PostCard;
+
 	constructor() {
 		super();
-		this.api = new Api();
+		this.postCard = new PostCardRowFour();
 	}
 
-	setScroll(postCard: PostCard) {
+	setScroll() {
 		window.addEventListener("scroll", async () => {
-			postCard.setPage(postCard.getPage() + 1);
-			let response: Page<PostList> = await this.api.getRecentPost(postCard.getPage());
-			postCard.appendCard(response.content);
+			this.postCard.setPage(this.postCard.getPage() + 1);
+			this.postCard.cardRowAppendCard();
 		});
 	}
 
 	async connectedCallback() {
-		let postCard: PostCard = new PostCard();
-		let response: Page<PostList> = await this.api.getRecentPost(postCard.getPage());
-
-		postCard.appendCard(response.content);
 		let template = html`
-			<div class="container">
+			<div class="container" id="home">
 				<h1>최신글</h1>
-				${postCard.cardRow}
 			</div>
 		`;
 		render(template, this);
-		this.setScroll(postCard);
+
+		this.postCard.cardRowAppendCard();
+		let home = document.getElementById("home");
+		home?.appendChild(this.postCard.cardRow);
+		this.setScroll();
 	}
 }
 

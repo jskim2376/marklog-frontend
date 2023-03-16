@@ -4,19 +4,19 @@ import { Api } from "@/api/api";
 import { Page } from "@/interface/page";
 import { PostList } from "@/interface/post-list";
 import { TagCount } from "@/interface/tag-count";
+import { PostCardRowOne } from "./element/post-card-row-one";
 
 class BlogElement extends HTMLElement {
-	api: Api;
+	postCard: PostCard;
 	constructor() {
 		super();
-		this.api = new Api();
+		this.postCard = new PostCardRowOne();
 	}
 
-	setScroll(postCard: PostCard) {
+	setScroll() {
 		window.addEventListener("scroll", async () => {
-			postCard.setPage(postCard.getPage() + 1);
-			let response: Page<PostList> = await this.api.getRecentPost(postCard.getPage());
-			postCard.appendCard(response.content);
+			this.postCard.setPage(this.postCard.getPage() + 1);
+			this.postCard.cardRowAppendCard();
 		});
 	}
 
@@ -24,14 +24,12 @@ class BlogElement extends HTMLElement {
 		let api = new Api();
 		// let tagCount: TagCount = await api.getTagCount(userId);
 
-		let postCard: PostCard = new PostCard();
-		let response: Page<PostList> = await this.api.getRecentPost(postCard.getPage());
-
-		postCard.appendCard(response.content);
-		let template = html` <div class="container">${postCard.cardRow}</div> `;
+		let template = html` <div class="container" id="blog"></div> `;
 		render(template, this);
-		this.appendChild;
-		this.setScroll(postCard);
+
+		let blog = document.getElementById("blog");
+		blog?.appendChild(this.postCard.cardRow);
+		this.setScroll();
 	}
 }
 

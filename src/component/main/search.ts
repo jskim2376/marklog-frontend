@@ -3,13 +3,14 @@ import { Api } from "@/api/api";
 import { Page } from "@/interface/page";
 import { PostList } from "@/interface/post-list";
 import { render, html } from "lit";
-import { PostCardRow1 } from "./element/post-card-row1";
+import { PostCardRowOne } from "./element/post-card-row-one";
+import { PostCard } from "./element/post-card";
 class SearchPostElement extends HTMLElement {
-	postCard: PostCardRow1;
+	postCard: PostCard;
 
 	constructor() {
 		super();
-		this.postCard = new PostCardRow1();
+		this.postCard = new PostCardRowOne();
 	}
 
 	async setSearchCard() {
@@ -19,7 +20,6 @@ class SearchPostElement extends HTMLElement {
 		if (this.postCard.getPage() == 0) {
 			this.postCard.cardRow.innerHTML = "";
 		}
-		this.postCard.appendCard(response.content);
 	}
 
 	setScroll() {
