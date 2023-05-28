@@ -25,6 +25,15 @@ export class Api {
 		}
 	}
 
+	getRecentPost(page: number) {
+		let path = this.url + "/post/?sort=id,desc&" + "page=" + page;
+		try {
+			return $.getJSON(path);
+		} catch {
+			return null;
+		}
+	}
+
 	getSearchPost(text: string, page: number) {
 		let path = this.url + `/post/search?text=${text}&sort=id,desc&page=${page}`;
 		try {
@@ -35,7 +44,7 @@ export class Api {
 	}
 
 	getPostByTagName(tagName: string, page: number) {
-		let path = this.url + `/post/tag?tag-name=${tagName}&sort=id,desc&page=${page}`;
+		let path = this.url + `/post/search/tag?tag=${tagName}&sort=id,desc&page=${page}`;
 		try {
 			return $.getJSON(path);
 		} catch {
@@ -81,15 +90,6 @@ export class Api {
 			type: "DELETE",
 			url: path,
 		});
-	}
-
-	getRecentPost(page: number) {
-		let path = this.url + "/post/recent?sort=id,desc&" + "page=" + page;
-		try {
-			return $.getJSON(path);
-		} catch {
-			return null;
-		}
 	}
 
 	getPost(postId: number) {

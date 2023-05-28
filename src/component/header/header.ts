@@ -1,9 +1,7 @@
 import "@/component/header/element/header-login";
 import "@/component/header//element/header-logout";
-import { Api } from "@/api/api";
 
 export async function createHeader(blogName: string) {
-	let api = new Api();
 	let accessToken = localStorage.getItem("access-token");
 	if (accessToken == null) {
 		let header = document.createElement("ml-header-logout");

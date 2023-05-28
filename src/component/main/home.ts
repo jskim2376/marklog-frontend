@@ -25,7 +25,6 @@ class RecentPostElement extends HTMLElement {
 			</div>
 		`;
 		render(template, this);
-
 		this.postCard.cardRowAppendCard();
 		let home = document.getElementById("home");
 		home?.appendChild(this.postCard.cardRow);
