@@ -4,6 +4,7 @@ import "@/page/login-page";
 import "@/page/post-page";
 import "@/page/search-page";
 import "@/page/blog-page";
+import "@/page/tag-page";
 import { Api } from "./api/api";
 
 async function initRouter() {
@@ -22,6 +23,10 @@ async function initRouter() {
 		{
 			path: "/search",
 			component: "ml-search-page",
+		},
+		{
+			path: "/tag",
+			component: "ml-tag-page",
 		},
 		{
 			path: "/post/:id",
