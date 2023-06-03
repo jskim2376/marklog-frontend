@@ -6,6 +6,8 @@ import "@/page/search-page";
 import "@/page/blog-page";
 import { Api } from "./api/api";
 
+function logout() {}
+
 async function initRouter() {
 	let api = new Api();
 	await api.setAccessToken();

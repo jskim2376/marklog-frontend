@@ -25,6 +25,23 @@ export class Api {
 		}
 	}
 
+	logout(userId: string) {
+		let path = this.url + "/api/v1/user/logout";
+		try {
+			return $.getJSON(path);
+		} catch {
+			return null;
+		}
+	}
+
+	getRecentPost(page: number) {
+		let path = this.url + "/post?sort=id,desc&" + "page=" + page;
+		try {
+			return $.getJSON(path);
+		} catch {
+			return null;
+		}
+	}
 	getSearchPost(text: string, page: number) {
 		let path = this.url + `/post/search?text=${text}&sort=id,desc&page=${page}`;
 		try {
@@ -42,11 +59,10 @@ export class Api {
 			return null;
 		}
 	}
-
 	_getNotices(userId: string) {
 		let accessToken = localStorage.getItem("access-token");
 		let bearerToken = "Bearer " + accessToken;
-		let path = this.url + "/notice/" + userId + "/uncheck";
+		let path = this.url + "/user/" + userId + "/notice";
 		return $.ajax({
 			beforeSend: function (request) {
 				request.setRequestHeader("Authorization", bearerToken);
@@ -70,10 +86,10 @@ export class Api {
 		}
 	}
 
-	deleteNotice(noticeId: number) {
+	deleteAllNotice(userId: string) {
 		let accessToken = localStorage.getItem("access-token");
 		let bearerToken = "Bearer " + accessToken;
-		let path = this.url + "/notice/" + noticeId;
+		let path = this.url + "/user/" + userId + "/notice";
 		return $.ajax({
 			beforeSend: function (request) {
 				request.setRequestHeader("Authorization", bearerToken);
@@ -83,26 +99,8 @@ export class Api {
 		});
 	}
 
-	getRecentPost(page: number) {
-		let path = this.url + "/post/recent?sort=id,desc&" + "page=" + page;
-		try {
-			return $.getJSON(path);
-		} catch {
-			return null;
-		}
-	}
-
 	getPost(postId: number) {
 		let path = this.url + "/post/" + postId;
-		try {
-			return $.getJSON(path);
-		} catch {
-			return null;
-		}
-	}
-
-	getTagCount(userId: number) {
-		let path = this.url + "/tag/" + userId;
 		try {
 			return $.getJSON(path);
 		} catch {
