@@ -31,7 +31,7 @@ export class PostCard {
 		tagListElement.setAttribute("class", "mb-3");
 		tagList.forEach((tag) => {
 			let tagElement = document.createElement("button");
-			tagElement.onclick = () => (location.href = `/search?tag-name=${tag.name}`);
+			tagElement.onclick = () => (location.href = `/tag?tag=${tag.name}`);
 			tagElement.setAttribute("class", "btn btn-primary mx-2");
 			tagElement.innerText = tag.name;
 			tagListElement.appendChild(tagElement);
@@ -40,10 +40,17 @@ export class PostCard {
 		return tagListElement;
 	}
 
+	dateToString(date: String) {
+		var dateString = date.split("T");
+		dateString[1] = dateString[1].substring(0, dateString[1].indexOf("."));
+		return dateString;
+	}
+
 	createPostCard(post: PostList): HTMLElement {
 		let card = document.createElement("div");
 		card.setAttribute("class", "my-3");
 		let tagList = this.createTag(post.tagList);
+		let date = this.dateToString(post.createdDate);
 		const template = html`
 			<div class="col h-100">
 				<div class="card h-100">
@@ -58,7 +65,7 @@ export class PostCard {
 						${tagList}
 						<div class="card-footer">
 							<a href=${post.picture}></a>
-							<small class="text-muted">${post.createdDate}</small>
+							<small class="text-muted">${date}</small>
 							<small class="text-muted">♥·${post.likeCount}</small>
 							<small class="text-muted">댓글·${post.commentCount}</small>
 							<br />
