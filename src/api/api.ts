@@ -1,4 +1,4 @@
-import $ from "jquery";
+import $, { post } from "jquery";
 
 export class Api {
 	url: string;
@@ -34,6 +34,58 @@ export class Api {
 		}
 	}
 
+	getPostComment(postId: number) {
+		let path = this.url + "/post/" + postId + "/comment";
+		try {
+			return $.getJSON(path);
+		} catch {
+			return null;
+		}
+	}
+
+	postComment(postId: number, content: string, parent: number) {
+		let accessToken = localStorage.getItem("access-token");
+		let bearerToken = "Bearer " + accessToken;
+		let path = this.url + "/post/" + postId + "/comment";
+
+		let sendData;
+		if (parent == 0) {
+			sendData = {
+				content: content,
+			};
+		} else {
+			sendData = {
+				content: content,
+				parentComment: parent,
+			};
+		}
+
+		return $.ajax({
+			beforeSend: function (request) {
+				request.setRequestHeader("Authorization", bearerToken);
+			},
+			data: JSON.stringify(sendData),
+			type: "POST",
+			contentType: "application/json",
+			dataType: "JSON",
+
+			url: path,
+		});
+	}
+
+	deletePostComment(postId: number, commentId: number) {
+		let accessToken = localStorage.getItem("access-token");
+		let bearerToken = "Bearer " + accessToken;
+		let path = this.url + "/post/" + postId + "/comment/" + commentId;
+		return $.ajax({
+			beforeSend: function (request) {
+				request.setRequestHeader("Authorization", bearerToken);
+			},
+			type: "DELETE",
+			url: path,
+		});
+	}
+
 	getRecentPost(page: number) {
 		let path = this.url + "/post?sort=id,desc&" + "page=" + page;
 		try {
@@ -42,6 +94,7 @@ export class Api {
 			return null;
 		}
 	}
+
 	getSearchPost(text: string, page: number) {
 		let path = this.url + `/post/search?text=${text}&sort=id,desc&page=${page}`;
 		try {
@@ -106,5 +159,44 @@ export class Api {
 		} catch {
 			return null;
 		}
+	}
+
+	getPostByUser(postId: number) {
+		let accessToken = localStorage.getItem("access-token");
+		let bearerToken = "Bearer " + accessToken;
+		let path = this.url + "/post/" + postId;
+		return $.ajax({
+			beforeSend: function (request) {
+				request.setRequestHeader("Authorization", bearerToken);
+			},
+			type: "GET",
+			url: path,
+		});
+	}
+
+	postLike(postId: number) {
+		let accessToken = localStorage.getItem("access-token");
+		let bearerToken = "Bearer " + accessToken;
+		let path = this.url + "/post/" + postId + "/like";
+		return $.ajax({
+			beforeSend: function (request) {
+				request.setRequestHeader("Authorization", bearerToken);
+			},
+			type: "POST",
+			url: path,
+		});
+	}
+
+	deleteLike(postId: number) {
+		let accessToken = localStorage.getItem("access-token");
+		let bearerToken = "Bearer " + accessToken;
+		let path = this.url + "/post/" + postId + "/like";
+		return $.ajax({
+			beforeSend: function (request) {
+				request.setRequestHeader("Authorization", bearerToken);
+			},
+			type: "DELETE",
+			url: path,
+		});
 	}
 }
