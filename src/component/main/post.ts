@@ -28,6 +28,9 @@ class PostElement extends HTMLElement {
 			tag.innerText = tagResponseDto.name;
 			tag.setAttribute("class", "btn btn-primary mx-1");
 			tagElements.push(tag);
+			tag.addEventListener("click", () => {
+				window.location.href = "/tag?name=" + tagResponseDto.name;
+			});
 		});
 		return tagElements;
 	}

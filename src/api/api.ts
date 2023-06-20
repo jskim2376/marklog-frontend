@@ -96,7 +96,7 @@ export class Api {
 	}
 
 	getSearchPost(text: string, page: number) {
-		let path = this.url + `/post/search?text=${text}&sort=id,desc&page=${page}`;
+		let path = this.url + `/search?keyword=${text}&sort=id,desc&page=${page}`;
 		try {
 			return $.getJSON(path);
 		} catch {
@@ -104,14 +104,15 @@ export class Api {
 		}
 	}
 
-	getPostByTagName(tagName: string, page: number) {
-		let path = this.url + `/post/tag?tag-name=${tagName}&sort=id,desc&page=${page}`;
+	getSearchTag(name: string, page: number) {
+		let path = this.url + `/search/tag?tag=${name}&sort=id,desc&page=${page}`;
 		try {
 			return $.getJSON(path);
 		} catch {
 			return null;
 		}
 	}
+
 	_getNotices(userId: string) {
 		let accessToken = localStorage.getItem("access-token");
 		let bearerToken = "Bearer " + accessToken;

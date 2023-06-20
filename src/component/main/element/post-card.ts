@@ -6,24 +6,28 @@ import { Page } from "@/interface/page";
 
 export class PostCard {
 	cardRow: HTMLElement;
-
+	page: number;
 	constructor() {
 		this.cardRow = this.createCardRow();
+		this.page = 0;
 	}
 
 	createCardRow() {
 		let cardRow = document.createElement("div");
-		cardRow.setAttribute("page", "0");
 		return cardRow;
 	}
 
 	getPage() {
-		return parseInt(this.cardRow.getAttribute("page")!);
+		return this.page;
 	}
 
 	setPage(page: number) {
-		this.cardRow.setAttribute("page", String(page));
-		return page;
+		this.page = page;
+		return this.page;
+	}
+
+	increasePage() {
+		this.page++;
 	}
 
 	createTag(tagList: Array<Tag>) {
@@ -31,7 +35,7 @@ export class PostCard {
 		tagListElement.setAttribute("class", "mb-3");
 		tagList.forEach((tag) => {
 			let tagElement = document.createElement("button");
-			tagElement.onclick = () => (location.href = `/tag?tag=${tag.name}`);
+			tagElement.onclick = () => (location.href = `/tag?name=${tag.name}`);
 			tagElement.setAttribute("class", "btn btn-primary mx-2");
 			tagElement.innerText = tag.name;
 			tagListElement.appendChild(tagElement);
@@ -82,9 +86,7 @@ export class PostCard {
 		return card;
 	}
 
-	async cardRowAppendCard() {
-		let api = new Api();
-		let postListCardPage: Page<PostList> = await api.getRecentPost(this.getPage());
+	async cardRowAppendCard(postListCardPage: Page<PostList>) {
 		postListCardPage.content.forEach((post: PostList) => {
 			let card = this.createPostCard(post);
 			this.cardRow.appendChild(card);

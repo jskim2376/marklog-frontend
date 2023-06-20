@@ -8,20 +8,21 @@ import { PostCardRowOne } from "./element/post-card-row-one";
 
 class BlogElement extends HTMLElement {
 	postCard: PostCard;
+	api: Api;
 	constructor() {
 		super();
 		this.postCard = new PostCardRowOne();
+		this.api = new Api();
 	}
 
-	setScroll() {
+	async setScroll() {
 		window.addEventListener("scroll", async () => {
 			this.postCard.setPage(this.postCard.getPage() + 1);
-			this.postCard.cardRowAppendCard();
+			this.postCard.cardRowAppendCard(await this.api.getRecentPost(this.postCard.getPage()));
 		});
 	}
 
 	async connectedCallback() {
-		let api = new Api();
 		let template = html` <div class="container" id="blog"></div> `;
 		render(template, this);
 

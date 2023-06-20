@@ -36,7 +36,7 @@ export class Comment {
 		let newComment = div.getElementsByClassName("newComment")[0];
 		newComment.addEventListener("click", (element) => {
 			let commentWrite = new CommentWrite();
-			div.appendChild(commentWrite.commentWrite(this.postId, postComment.postCommentId));
+			newComment.after(commentWrite.commentWrite(this.postId, postComment.postCommentId));
 		});
 
 		let deleteComment = div.getElementsByClassName("deleteComment")[0];
