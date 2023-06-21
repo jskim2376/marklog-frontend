@@ -42,10 +42,11 @@ class TagPostElement extends HTMLElement {
 
 	connectedCallback() {
 		let url = new URL(window.location.href);
+
 		const template = html`
 			<div class="container">
 				<h1>태그</h1>
-				<b>${url.searchParams.get("username") ? url.searchParams.get("username") + "님이 작성한 게시글 검색" : ""}</b>
+				<b>검색 태그 : ${url.searchParams.get("name")}</b>
 			</div>
 		`;
 		render(template, this);

@@ -1,3 +1,4 @@
+import { Post } from "@/interface/post";
 import $, { post } from "jquery";
 
 export class Api {
@@ -160,6 +161,49 @@ export class Api {
 		} catch {
 			return null;
 		}
+	}
+	deletePost(postId: string) {
+		let accessToken = localStorage.getItem("access-token");
+		let bearerToken = "Bearer " + accessToken;
+		let path = this.url + "/post/" + postId;
+		return $.ajax({
+			beforeSend: function (request) {
+				request.setRequestHeader("Authorization", bearerToken);
+			},
+			type: "DELETE",
+			url: path,
+		});
+	}
+
+	postPost(post: Post) {
+		let accessToken = localStorage.getItem("access-token");
+		let bearerToken = "Bearer " + accessToken;
+		let path = this.url + "/post";
+		return $.ajax({
+			beforeSend: function (request) {
+				request.setRequestHeader("Authorization", bearerToken);
+			},
+			data: JSON.stringify(post),
+			type: "POST",
+			contentType: "application/json",
+			url: path,
+		});
+	}
+
+	putPost(post: Post, postId: number) {
+		let accessToken = localStorage.getItem("access-token");
+		let bearerToken = "Bearer " + accessToken;
+		let path = this.url + "/post/" + postId;
+		return $.ajax({
+			beforeSend: function (request) {
+				request.setRequestHeader("Authorization", bearerToken);
+			},
+			data: JSON.stringify(post),
+			type: "PUT",
+			contentType: "application/json",
+			dataType: "JSON",
+			url: path,
+		});
 	}
 
 	getPostByUser(postId: number) {
