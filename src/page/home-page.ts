@@ -5,7 +5,7 @@ import { createFooter } from "@/component/footer/footer";
 
 class HomePageElement extends HTMLElement {
 	async connectedCallback() {
-		this.appendChild(await createHeader("Marklog"));
+		this.appendChild(await createHeader("Marklog", 0));
 		this.appendChild(createRecentPost());
 		this.appendChild(createFooter());
 	}

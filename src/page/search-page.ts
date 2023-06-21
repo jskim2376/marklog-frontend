@@ -7,7 +7,7 @@ import { createSearchPost } from "@/component/main/search";
 class SearchPageElement extends HTMLElement {
 	async connectedCallback() {
 		const urlParameter = window.location.search;
-		this.appendChild(await createHeader("Marklog"));
+		this.appendChild(await createHeader("Marklog", 0));
 		this.appendChild(createSearchPost());
 		this.appendChild(createFooter());
 	}

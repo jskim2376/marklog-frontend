@@ -4,7 +4,7 @@ import { createWrite } from "@/component/main/write";
 
 class WritePageElement extends HTMLElement {
 	async connectedCallback() {
-		this.appendChild(createEdit());
+		this.appendChild(createWrite());
 	}
 }
 customElements.define("ml-write-page", WritePageElement);

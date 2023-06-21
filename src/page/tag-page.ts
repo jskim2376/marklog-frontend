@@ -7,7 +7,7 @@ import { createTagPost } from "@/component/main/tag";
 class TagPageElement extends HTMLElement {
 	async connectedCallback() {
 		const urlParameter = window.location.search;
-		this.appendChild(await createHeader("Marklog"));
+		this.appendChild(await createHeader("Marklog", 0));
 		this.appendChild(createTagPost());
 		this.appendChild(createFooter());
 	}

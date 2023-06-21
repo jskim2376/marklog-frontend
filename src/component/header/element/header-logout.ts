@@ -2,10 +2,12 @@ import { html, render } from "lit";
 export class HeaderLogoutElement extends HTMLElement {
 	connectedCallback() {
 		let blogName = this.getAttribute("blog-name");
+		let blogUserId = this.getAttribute("userId");
+
 		const template = html`
 			<nav class="navbar navbar-expand-lg navbar-light bg-light mb-3" id="logout-nav">
 				<div class="container">
-					<a class="navbar-brand fs-3" href="/">${blogName}</a>
+					<a class="navbar-brand fs-3" href="${blogUserId != "0" ? "/blog/" + blogUserId : "/"}">${blogName}</a>
 					<ul class="nav">
 						<li class="nav-item">
 							<a href="/search" class="btn">

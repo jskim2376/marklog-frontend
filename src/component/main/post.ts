@@ -4,24 +4,11 @@ import { unsafeHTML } from "lit-html/directives/unsafe-html.js";
 
 import { marked } from "marked";
 import { Comment } from "./element/comment";
-
-interface TagResponseDto {
-	name: string;
-}
-
-interface PostResponseDto {
-	createdDate: string;
-	modifiedDate: string;
-	title: string;
-	content: string;
-	userId: number;
-	userName: string;
-	tagList: Array<TagResponseDto>;
-	like: boolean;
-}
+import { Tag } from "@/interface/tag";
+import { PostResponseDto } from "@/interface/post";
 
 class PostElement extends HTMLElement {
-	createTagElements(tagList: Array<TagResponseDto>) {
+	createTagElements(tagList: Array<Tag>) {
 		let tagElements: Array<HTMLElement> = new Array();
 		tagList.forEach((tagResponseDto) => {
 			let tag = document.createElement("button");

@@ -129,10 +129,11 @@ export class HeaderLoginElement extends HTMLElement {
 		let userId = jwtDecode<JwtPayload>(accessToken).jti!;
 		let user: User = await api.getUser(userId);
 		let blogName = this.getAttribute("blog-name");
+		let blogUserId = this.getAttribute("userId");
 		const template = html`
 			<nav class="navbar navbar-expand-lg navbar-light bg-light mb-3" id="login-nav">
 				<div class="container">
-					<a class="navbar-brand fs-3" href="/">${blogName}</a>
+					<a class="navbar-brand fs-3" href="${blogUserId != "0" ? "/blog/" + blogUserId : "/"}">${blogName}</a>
 					<ul class="nav">
 						<li class="nav-item" id="search"></li>
 						<li class="nav-item" id="notice"></li>

@@ -114,6 +114,15 @@ export class Api {
 		}
 	}
 
+	getSearchPostByUserId(userId: number, page: number) {
+		let path = this.url + `/search/user?userId=${userId}&sort=id,desc&page=${page}`;
+		try {
+			return $.getJSON(path);
+		} catch {
+			return null;
+		}
+	}
+
 	_getNotices(userId: string) {
 		let accessToken = localStorage.getItem("access-token");
 		let bearerToken = "Bearer " + accessToken;

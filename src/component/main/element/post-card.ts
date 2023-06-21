@@ -59,7 +59,7 @@ export class PostCard {
 			<div class="col h-100">
 				<div class="card h-100">
 					<div>
-						<a href=${"post/" + post.postId} class="text-dark text-decoration-none">
+						<a href=${"/post/" + post.postId} class="text-dark text-decoration-none">
 							<img src=${post.thumbnail} class="card-img-top object-fit-cover" style=" aspect-ratio: 16/9;object-fit:cover" />
 							<div class="card-body">
 								<h5 class="card-title">${post.title}</h5>

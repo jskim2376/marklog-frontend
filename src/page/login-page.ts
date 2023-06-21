@@ -6,7 +6,7 @@ import { createLogin } from "@/component/main/login";
 
 class LoginPageElement extends HTMLElement {
 	async connectedCallback() {
-		this.appendChild(await createHeader("Marklog"));
+		this.appendChild(await createHeader("Marklog", 0));
 		this.appendChild(createLogin());
 		this.appendChild(createFooter());
 	}
