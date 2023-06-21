@@ -6,6 +6,8 @@ import "@/page/search-page";
 import "@/page/tag-page";
 import "@/page/blog-page";
 import "@/page/write-page";
+import "@/page/edit-page";
+
 import { Api } from "./api/api";
 
 function logout() {}
@@ -35,7 +37,10 @@ async function initRouter() {
 			path: "/write",
 			component: "ml-write-page",
 		},
-
+		{
+			path: "/edit/:id",
+			component: "ml-edit-page",
+		},
 		{
 			path: "/post/:id",
 			component: "ml-post-page",

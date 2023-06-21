@@ -36,15 +36,15 @@ class PostElement extends HTMLElement {
 	}
 
 	async connectedCallback() {
-		let api = new Api();
-		let postId: number = parseInt(this.parentElement?.getAttribute("post-id")!);
-		let post: PostResponseDto = await api.getPostByUser(postId);
 		marked.setOptions({
 			breaks: true,
 		});
-		let postNumber: number = parseInt(window.location.pathname.split("/")[2]);
-		let editLocation = "location.href='/edit/" + postNumber + "'";
-		let deleteLocation = "location.href='/delete/" + postNumber + "'";
+
+		let api = new Api();
+		let postId: number = parseInt(this.parentElement?.getAttribute("post-id")!);
+		let editLocation = "location.href='/edit/" + postId + "'";
+		let post: PostResponseDto = await api.getPostByUser(postId);
+
 		let template = html`<div class="container" id="blog"></div>
 			<div class="container" style="width:768px">
 				<header>
@@ -84,7 +84,7 @@ class PostElement extends HTMLElement {
 				</div>
 				<div class="text-end ">
 					<button class="btn btn-primary" onclick=${editLocation}>수정</button>
-					<button class="btn btn-danger" onclick=${deleteLocation}>삭제</button>
+					<button id="deleteBtn" class="btn btn-danger">삭제</button>
 				</div>
 				<div class="input-group py-1">
 					<textarea id="commentContent" class="form-control col"></textarea>
@@ -93,6 +93,13 @@ class PostElement extends HTMLElement {
 				<div id="comment" class="my-1"></div>
 			</div> `;
 		render(template, this);
+
+		let deleteBtn = document.getElementById("deleteBtn")!;
+		deleteBtn.addEventListener("click", () => {
+			api.deletePost(postId).done(() => {
+				window.history.back();
+			});
+		});
 
 		let tagDiv = document.getElementById("taglist")!;
 		this.createTagElements(post.tagList).forEach((tagElement) => {
@@ -119,7 +126,7 @@ class PostElement extends HTMLElement {
 				unlikeImg?.classList.add("d-none");
 				let likeImg = document.getElementById("likeImg");
 				likeImg?.classList.remove("d-none");
-				api.postLike(postNumber);
+				api.postLike(postId);
 			} else {
 				likeBtn?.classList.remove("like");
 				likeBtn?.classList.add("unlike");
@@ -128,7 +135,7 @@ class PostElement extends HTMLElement {
 				likeImg?.classList.add("d-none");
 				let unlikeImg = document.getElementById("unlikeImg");
 				unlikeImg?.classList.remove("d-none");
-				api.deleteLike(postNumber);
+				api.deleteLike(postId);
 			}
 		});
 

@@ -1,10 +1,9 @@
 // <sl-button>, <sl-icon>, <sl-input>, and <sl-rating> are ready to use!
 import { createEdit } from "@/component/main/edit";
-import { createWrite } from "@/component/main/write";
 
-class WritePageElement extends HTMLElement {
+class EditPageElement extends HTMLElement {
 	async connectedCallback() {
 		this.appendChild(createEdit());
 	}
 }
-customElements.define("ml-write-page", WritePageElement);
+customElements.define("ml-edit-page", EditPageElement);

@@ -162,7 +162,21 @@ export class Api {
 			return null;
 		}
 	}
-	deletePost(postId: string) {
+
+	getPostByUser(postId: number) {
+		let accessToken = localStorage.getItem("access-token");
+		let bearerToken = "Bearer " + accessToken;
+		let path = this.url + "/post/" + postId;
+		return $.ajax({
+			beforeSend: function (request) {
+				request.setRequestHeader("Authorization", bearerToken);
+			},
+			type: "GET",
+			url: path,
+		});
+	}
+
+	deletePost(postId: number) {
 		let accessToken = localStorage.getItem("access-token");
 		let bearerToken = "Bearer " + accessToken;
 		let path = this.url + "/post/" + postId;
@@ -202,19 +216,6 @@ export class Api {
 			type: "PUT",
 			contentType: "application/json",
 			dataType: "JSON",
-			url: path,
-		});
-	}
-
-	getPostByUser(postId: number) {
-		let accessToken = localStorage.getItem("access-token");
-		let bearerToken = "Bearer " + accessToken;
-		let path = this.url + "/post/" + postId;
-		return $.ajax({
-			beforeSend: function (request) {
-				request.setRequestHeader("Authorization", bearerToken);
-			},
-			type: "GET",
 			url: path,
 		});
 	}
