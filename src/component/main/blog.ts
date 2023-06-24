@@ -5,6 +5,7 @@ import { Page } from "@/interface/page";
 import { PostList } from "@/interface/post-list";
 import { TagCount } from "@/interface/tag-count";
 import { PostCardRowOne } from "./element/post-card-row-one";
+import { User } from "@/interface/user";
 
 class BlogElement extends HTMLElement {
 	userId: number;
@@ -38,7 +39,25 @@ class BlogElement extends HTMLElement {
 	}
 
 	async connectedCallback() {
-		let template = html` <div class="container" id="blog"></div> `;
+		let api = new Api();
+		const userId = window.location.href.split("/")[4];
+		let user: User = await api.getUser(userId);
+
+		let template = html`
+			<div class="container" id="blog">
+				<div class="row mb-5 mx-1">
+					<div class="col-3 text-center">
+						<img id="picture" class="bigprofile mb-2 rounded-circle" src="${user.picture}" width="100" height="100" />
+					</div>
+					<div class="col-8">
+						<h3>${user.name}</h3>
+						<h5>${user.introduce}</h5>
+					</div>
+				</div>
+				<hr />
+				<h1>글</h1>
+			</div>
+		`;
 		render(template, this);
 
 		this.setBlogCard();
