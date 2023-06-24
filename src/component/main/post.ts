@@ -33,7 +33,7 @@ class PostElement extends HTMLElement {
 		let post: PostResponseDto = await api.getPostByUser(postId);
 
 		let template = html`<div class="container" id="blog"></div>
-			<div class="container" style="width:768px">
+			<div class="container" style="max-width:768px">
 				<header>
 					<h1 class="display-1">${post.title}</h1>
 					<br />

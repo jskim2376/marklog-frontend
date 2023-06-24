@@ -1,4 +1,5 @@
 import { Post } from "@/interface/post";
+import { User } from "@/interface/user";
 import $, { post } from "jquery";
 
 export class Api {
@@ -26,13 +27,32 @@ export class Api {
 		}
 	}
 
-	logout(userId: string) {
-		let path = this.url + "/api/v1/user/logout";
-		try {
-			return $.getJSON(path);
-		} catch {
-			return null;
-		}
+	putUser(userId: number, user: User) {
+		let path = this.url + "/user/" + userId;
+		let accessToken = localStorage.getItem("access-token");
+		let bearerToken = "Bearer " + accessToken;
+		return $.ajax({
+			beforeSend: function (request) {
+				request.setRequestHeader("Authorization", bearerToken);
+			},
+			data: JSON.stringify(user),
+			contentType: "application/json",
+			type: "PUT",
+			url: path,
+		});
+	}
+
+	deleteUser(userId: number) {
+		let path = this.url + "/user/" + userId;
+		let accessToken = localStorage.getItem("access-token");
+		let bearerToken = "Bearer " + accessToken;
+		return $.ajax({
+			beforeSend: function (request) {
+				request.setRequestHeader("Authorization", bearerToken);
+			},
+			type: "DELETE",
+			url: path,
+		});
 	}
 
 	getPostComment(postId: number) {

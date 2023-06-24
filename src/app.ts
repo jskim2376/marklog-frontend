@@ -7,6 +7,7 @@ import "@/page/tag-page";
 import "@/page/blog-page";
 import "@/page/write-page";
 import "@/page/edit-page";
+import "@/page/setting-page";
 
 import { Api } from "./api/api";
 
@@ -36,6 +37,10 @@ async function initRouter() {
 		{
 			path: "/write",
 			component: "ml-write-page",
+		},
+		{
+			path: "/setting",
+			component: "ml-setting-page",
 		},
 		{
 			path: "/edit/:id",
