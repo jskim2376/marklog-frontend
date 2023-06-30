@@ -7,26 +7,31 @@ import { PostCardRowOne } from "./element/post-card-row-one";
 import { PostCard } from "./element/post-card";
 class SearchPostElement extends HTMLElement {
 	postCard: PostCard;
+	api: Api;
 
 	constructor() {
 		super();
 		this.postCard = new PostCardRowOne();
+		this.api = new Api();
 	}
 
 	async setSearchCard() {
 		let searchInput = <HTMLInputElement>document.getElementById("search-input")!;
-		let api = new Api();
-		let response: Page<PostList> = await api.getSearchPost(searchInput.value, this.postCard.getPage());
-		if (this.postCard.getPage() == 0) {
-			this.postCard.cardRow.innerHTML = "";
-		}
+		let response: Page<PostList> = await this.api.getSearchPost(searchInput.value, this.postCard.getPage());
+		this.postCard.cardRowAppendCard(response);
+	}
+	async appendSearchCard() {
+		let searchInput = <HTMLInputElement>document.getElementById("search-input")!;
+		this.postCard.increasePage();
+		let response: Page<PostList> = await this.api.getSearchPost(searchInput.value, this.postCard.getPage());
+		this.postCard.cardRowAppendCard(response);
 	}
 
 	setScroll() {
 		window.addEventListener("scroll", () => {
 			let val = window.innerHeight + window.scrollY;
 			if (val >= document.body.offsetHeight) {
-				this.setSearchCard();
+				this.appendSearchCard();
 			}
 		});
 	}
@@ -55,6 +60,7 @@ class SearchPostElement extends HTMLElement {
 			this.setSearchCard();
 			this.setScroll();
 		};
+
 		let searchInput: HTMLElement = document.getElementById("search-input")!;
 		searchInput.onkeydown = (e) => {
 			if (e.code == "Enter") {

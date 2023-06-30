@@ -16,7 +16,7 @@ class BlogPageElement extends HTMLElement {
 		let api = new Api();
 		let user: User = await api.getUser(userId);
 
-		this.appendChild(await createHeader(user.title));
+		this.appendChild(await createHeader(user.title, userId));
 
 		this.appendChild(createBlog());
 

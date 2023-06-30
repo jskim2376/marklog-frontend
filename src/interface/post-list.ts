@@ -5,7 +5,7 @@ export interface PostList {
 	thumbnail: string;
 	title: string;
 	summary: string;
-	createdDate: Date;
+	createdDate: string;
 	commentCount: number;
 	likeCount: number;
 	picture: string;
