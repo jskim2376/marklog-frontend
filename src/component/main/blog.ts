@@ -40,16 +40,11 @@ class BlogElement extends HTMLElement {
 
 	async connectedCallback() {
 		let api = new Api();
-<<<<<<< HEAD
-		// let tagCount: TagCount = await api.getTagCount(userId);
-
-		let template = html` <div class="container" id="blog"></div> `;
-=======
 		const userId = window.location.href.split("/")[4];
 		let user: User = await api.getUser(userId);
 
 		let template = html`
-			<div class="container" id="blog">
+			<div class="container" style="max-width:768px" id="blog">
 				<div class="row mb-5 mx-1">
 					<div class="col-3 text-center">
 						<img id="picture" class="bigprofile mb-2 rounded-circle" src="${user.picture}" width="100" height="100" />
@@ -63,7 +58,6 @@ class BlogElement extends HTMLElement {
 				<h1>글</h1>
 			</div>
 		`;
->>>>>>> dev
 		render(template, this);
 
 		this.setBlogCard();

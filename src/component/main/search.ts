@@ -39,7 +39,7 @@ class SearchPostElement extends HTMLElement {
 	connectedCallback() {
 		let url = new URL(window.location.href);
 		const template = html`
-			<div class="container">
+			<div class="container" style="max-width:768px">
 				<h1>검색</h1>
 				<b>${url.searchParams.get("username") ? url.searchParams.get("username") + "님이 작성한 게시글 검색" : ""}</b>
 				<div class="input-group input-group-lg mb-3">
