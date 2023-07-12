@@ -35,11 +35,7 @@ export class PostCard {
 		tagListElement.setAttribute("class", "mb-3");
 		tagList.forEach((tag) => {
 			let tagElement = document.createElement("button");
-<<<<<<< HEAD
-			tagElement.onclick = () => (location.href = `/tag?tag-name=${tag.name}`);
-=======
 			tagElement.onclick = () => (location.href = `/tag?name=${tag.name}`);
->>>>>>> dev
 			tagElement.setAttribute("class", "btn btn-primary mx-2");
 			tagElement.innerText = tag.name;
 			tagListElement.appendChild(tagElement);

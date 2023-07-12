@@ -39,12 +39,8 @@ class RecentPostElement extends HTMLElement {
 			</div>
 		`;
 		render(template, this);
-<<<<<<< HEAD
-		this.postCard.cardRowAppendCard();
-=======
 
 		this.postCard.cardRowAppendCard(await this.api.getRecentPost(this.postCard.getPage()));
->>>>>>> dev
 		let home = document.getElementById("home");
 		home?.appendChild(this.postCard.cardRow);
 		this.setScroll();
