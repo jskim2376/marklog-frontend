@@ -3,11 +3,7 @@ import { User } from "@/interface/user";
 import $, { post } from "jquery";
 
 export class Api {
-	url: string;
-	constructor() {
-		this.url = "http://localhost/api/v1";
-	}
-
+	readonly url = "http://localhost:8080/api/v1";
 	async setAccessToken() {
 		try {
 			let path = this.url + "/token/refresh";
